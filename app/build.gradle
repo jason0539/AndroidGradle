@@ -13,35 +13,35 @@ android {
         versionName "1.0"
     }
     //通过输入
-   // aaa = new String(System.console().readLine("请输入字符串:"))
+    // aaa = new String(System.console().readLine("请输入字符串:"))
     //通过文件
-    if(rootProject.file('test.properties').exists()){
-                java.util.Properties properties = new Properties()
+    if (rootProject.file('test.properties').exists()) {
+        java.util.Properties properties = new Properties()
         properties.load(rootProject.file('test.properties').newDataInputStream())
         aaa = properties.getProperty('debug.text')
-        println("!!!!!"+aaa)
-    }else {
+        println("!!!!!" + aaa)
+    } else {
         aaa = "文件没找到"
     }
     buildTypes {
         debug {
             //buildConfigField("String","TEXT","\""+aaa+"\"")
-            buildConfigField("String","TEXT","\"$aaa\"")
-            resValue("color","textcolor","#DDA0DD")
+            buildConfigField("String", "TEXT", "\"$aaa\"")
+            resValue("color", "textcolor", "#DDA0DD")
             minifyEnabled false
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "GooglePlay"]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         stag {
-            buildConfigField("String","TEXT","\"这个字符串来自test模式\"")
-            resValue("color","textcolor","#aaaaaa")
+            buildConfigField("String", "TEXT", "\"这个字符串来自test模式\"")
+            resValue("color", "textcolor", "#aaaaaa")
             minifyEnabled false
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
-            buildConfigField("String","TEXT","\"这个字符串来自release模式\"")
-            resValue("color","textcolor","#aaaaaa")
+            buildConfigField("String", "TEXT", "\"这个字符串来自release模式\"")
+            resValue("color", "textcolor", "#aaaaaa")
             minifyEnabled false
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -86,12 +86,28 @@ android {
 //    }
 
 }
-//task gettextfromnet<<{
-//    println("#######"+aaa)
-//    aaa = new String(System.console().readLine("dsadasdada:"))
-//    println("#######"+aaa)
-//
+task getTextFromConsole << {
+    println("#######" + aaa)
+    aaa = new String(System.console().readLine("控制台输入一段文字:"))
+    println("#######" + aaa)
+
+}
+
+task testConfigure {
+    println("configure before run")
+}
+
+task testDoLast << {
+    println("configure before run")
+}
+
+//task testDoLast {
+//    doLast {
+//        println("ccc")
+//        println("dddd")
+//    }
 //}
+
 //tasks.whenTaskAdded {theTask->
 //    println("!!!!!!"+theTask.name)
 //    if (theTask.name.equals("preDebugBuild")){
